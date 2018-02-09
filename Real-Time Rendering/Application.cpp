@@ -103,8 +103,8 @@ CHostApplication::~CHostApplication()
 }
 
 long CHostApplication::EnumerateModes(D3DDISPLAYMODE * displayModes, long modeCount)
-{ // pode dar ruim
-	long count = d3d->GetAdapterModeCount(D3DADAPTER_DEFAULT, D3DFMT_UNKNOWN);
+{
+	long count = d3d->GetAdapterModeCount(D3DADAPTER_DEFAULT, D3DFMT_UNKNOWN); // It's different from directx 8 calling
 
 	if (modeCount > count)
 		modeCount = count;

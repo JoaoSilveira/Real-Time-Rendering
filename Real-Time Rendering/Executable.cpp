@@ -1,11 +1,12 @@
 #include "Executable.h"
 #include "Application.h"
+#include "VertexApplication.h"
 
 static CHostApplication *hostApplication = nullptr;
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, int cmdShow)
 {
-    hostApplication = new CHostApplication();
+    hostApplication = new CVertexApplication();
 
     hostApplication->Go();
 
