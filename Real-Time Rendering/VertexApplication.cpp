@@ -1,6 +1,4 @@
 #include "VertexApplication.h"
-#include <d3d9helper.h>
-#include <complex>
 
 #define D3DFVF_SIMPLEVERTEX (D3DFVF_XYZRHW | D3DFVF_DIFFUSE)
 #define NUM_VERTICES 1000
@@ -58,10 +56,10 @@ bool CVertexApplication::FillVertexBuffer()
 
 	for (auto i = 0; i < NUM_VERTICES; i++)
 	{
-		auto angle = static_cast<float>(i) / static_cast<float>(NUM_VERTICES) * 2.0f * 3.14159265f;
-
-		vertices[i].x = xOffset + RADIUS * std::cosf(angle);
-		vertices[i].y = yOffset + RADIUS * std::sinf(angle);
+		auto angle = static_cast<float>(i) / static_cast<float>(NUM_VERTICES) * 2.0f * D3DX_PI;
+		
+		vertices[i].x = xOffset + RADIUS * cosf(angle);
+		vertices[i].y = yOffset + RADIUS * sinf(angle);
 		vertices[i].z = 1.0f;
 		vertices[i].rhw = 1.0f;
 		vertices[i].color = 0xffffffff;

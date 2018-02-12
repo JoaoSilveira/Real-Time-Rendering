@@ -24,25 +24,23 @@ HRESULT CHostApplication::EasyCreateWindowed(HWND windowHandle, D3DDEVTYPE devic
 {
 	D3DDISPLAYMODE currentMode;
 
-	if (SUCCEEDED(d3d->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &currentMode)))
-	{
-		ZeroMemory(&presentParameters, sizeof(D3DPRESENT_PARAMETERS));
+	if (FAILED(d3d->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &currentMode)))
+		return E_FAIL;
 
-		presentParameters.Windowed = true;
-		presentParameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
-		presentParameters.BackBufferFormat = currentMode.Format;
-		presentParameters.EnableAutoDepthStencil = true;
-		presentParameters.AutoDepthStencilFormat = D3DFMT_D16;
+	ZeroMemory(&presentParameters, sizeof(D3DPRESENT_PARAMETERS));
 
-		creationParameters.AdapterOrdinal = D3DADAPTER_DEFAULT;
-		creationParameters.DeviceType = deviceType;
-		creationParameters.hFocusWindow = windowHandle;
-		creationParameters.BehaviorFlags = behavior;
+	presentParameters.Windowed = true;
+	presentParameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
+	presentParameters.BackBufferFormat = currentMode.Format;
+	presentParameters.EnableAutoDepthStencil = true;
+	presentParameters.AutoDepthStencilFormat = D3DFMT_D16;
 
-		return CreateDevice(&creationParameters, &presentParameters);
-	}
+	creationParameters.AdapterOrdinal = D3DADAPTER_DEFAULT;
+	creationParameters.DeviceType = deviceType;
+	creationParameters.hFocusWindow = windowHandle;
+	creationParameters.BehaviorFlags = behavior;
 
-	return E_FAIL;
+	return CreateDevice(&creationParameters, &presentParameters);
 }
 
 HRESULT CHostApplication::EasyCreateFullScreen(D3DDISPLAYMODE * displayModes, D3DDEVTYPE deviceType, DWORD behavior)
@@ -149,8 +147,8 @@ void CHostApplication::Go()
 
 	InitializeD3D();
 
-	if (FAILED(EasyCreateWindowed(_hWnd, D3DDEVTYPE_HAL, D3DCREATE_HARDWARE_VERTEXPROCESSING)))
-		return;
+	//if (FAILED(EasyCreateWindowed(_hWnd, D3DDEVTYPE_HAL, D3DCREATE_HARDWARE_VERTEXPROCESSING)))
+	//	return;
 
 	if (!PostInitialize())
 		return;

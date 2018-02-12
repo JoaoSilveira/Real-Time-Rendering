@@ -1,12 +1,13 @@
 #include "Executable.h"
 #include "Application.h"
 #include "VertexApplication.h"
+#include "TransformApplication.h"
 
 static CHostApplication *hostApplication = nullptr;
 
 INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, PSTR cmdLine, int cmdShow)
 {
-    hostApplication = new CVertexApplication();
+    hostApplication = new CTransformApplication();
 
     hostApplication->Go();
 

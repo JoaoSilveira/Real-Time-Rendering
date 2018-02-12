@@ -1,6 +1,10 @@
 #pragma once
 #include <windows.h>
 #include <d3d9.h>
+#include <dxgi.h>
+#include <d3dx9.h>
+
+#pragma comment (lib, "d3dx9.lib") // necessary because of god knows why https://stackoverflow.com/questions/33486139/unresolved-external-symbol-error-c-vs15-d3dx9-library
 
 class CHostApplication
 {
