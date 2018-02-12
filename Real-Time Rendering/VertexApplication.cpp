@@ -14,7 +14,7 @@ struct SIMPLE_VERTEX
 	DWORD color;
 };
 
-CVertexApplication::CVertexApplication(): vertexBuffer(nullptr)
+CVertexApplication::CVertexApplication() : vertexBuffer(nullptr)
 {
 }
 
@@ -57,14 +57,14 @@ bool CVertexApplication::FillVertexBuffer()
 	for (auto i = 0; i < NUM_VERTICES; i++)
 	{
 		auto angle = static_cast<float>(i) / static_cast<float>(NUM_VERTICES) * 2.0f * D3DX_PI;
-		
+
 		vertices[i].x = xOffset + RADIUS * cosf(angle);
 		vertices[i].y = yOffset + RADIUS * sinf(angle);
 		vertices[i].z = 1.0f;
 		vertices[i].rhw = 1.0f;
 		vertices[i].color = 0xffffffff;
 	}
-	
+
 	vertexBuffer->Unlock();
 	return true;
 }

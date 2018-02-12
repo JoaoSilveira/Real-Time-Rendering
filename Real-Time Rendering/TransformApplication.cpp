@@ -14,7 +14,7 @@ struct SIMPLE_VERTEX
 	DWORD color;
 };
 
-CTransformApplication::CTransformApplication(): vertexBuffer(nullptr)
+CTransformApplication::CTransformApplication() : flick(false), vertexBuffer(nullptr)
 {
 }
 
@@ -70,11 +70,18 @@ bool CTransformApplication::FillVertexBuffer()
 		return false;
 	}
 
-	auto vpWidth = static_cast<float>(_windowWidth) / 2;
-	auto vpHeight = static_cast<float>(_windowHeight) / 2;
+	auto xOffset = 0.0f;
+	auto yOffset = 0.0f;
 
-	auto xOffset = vpWidth * RANDOM_NUMBER - static_cast<float>(vpWidth) / 2;
-	auto yOffset = vpHeight * RANDOM_NUMBER - static_cast<float>(vpHeight) / 2; // center object, it was on 4th quadrant
+	if (flick)
+	{
+		auto vpWidth = static_cast<float>(_windowWidth) / 2;
+		auto vpHeight = static_cast<float>(_windowHeight) / 2;
+
+		// center object, it was on 4th quadrant
+		xOffset = vpWidth * RANDOM_NUMBER - static_cast<float>(vpWidth) / 2.0f;
+		yOffset = vpWidth * RANDOM_NUMBER - static_cast<float>(vpWidth) / 2.0f;
+	}
 
 	for (auto i = 0; i < NUM_VERTICES; i++)
 	{
@@ -136,7 +143,7 @@ void CTransformApplication::Render()
 
 	GetWindowRect(_hWnd, &windowRect);
 
-	D3DXMatrixPerspectiveFovLH(&_projectionMatrix, D3DX_PI / 4.0f, 
+	D3DXMatrixPerspectiveFovLH(&_projectionMatrix, D3DX_PI / 4.0f,
 		static_cast<float>(windowRect.right - windowRect.left) / static_cast<float>(windowRect.bottom - windowRect.top),
 		1.0f, 1000.0f);
 	d3dDevice->SetTransform(D3DTS_PROJECTION, &_projectionMatrix);
@@ -177,4 +184,15 @@ void CTransformApplication::Render()
 	d3dDevice->DrawPrimitive(D3DPT_POINTLIST, 0, NUM_VERTICES);
 
 	d3dDevice->SetViewport(&mainViewport);
+}
+
+bool CTransformApplication::HandleMessage(MSG * message)
+{
+	if (!CHostApplication::HandleMessage(message))
+		return false;
+
+	if (message->message == WM_KEYDOWN && message->wParam == VK_SPACE)
+		flick = !flick;
+
+	return true;
 }

@@ -9,15 +9,15 @@
 class CHostApplication
 {
 public:
-    CHostApplication();
-    virtual ~CHostApplication();
+	CHostApplication();
+	virtual ~CHostApplication();
 
-    LRESULT WINAPI MessageHandler(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
+	LRESULT WINAPI MessageHandler(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
 
-    void Go();
+	void Go();
 
 protected:
-    HWND _hWnd;
+	HWND _hWnd;
 	LPDIRECT3DDEVICE9 d3dDevice;
 	LPDIRECT3D9 d3d;
 
@@ -25,8 +25,8 @@ protected:
 	D3DDEVICE_CREATION_PARAMETERS creationParameters;
 
 	bool _continue;
-    LONG _windowWidth;
-    LONG _windowHeight;
+	LONG _windowWidth;
+	LONG _windowHeight;
 
 	HRESULT InitializeD3D();
 	HRESULT CreateDevice(D3DDEVICE_CREATION_PARAMETERS * createParameters, D3DPRESENT_PARAMETERS *presentParameters);

@@ -12,6 +12,8 @@ class CTransformApplication : public CHostApplication
 	D3DVIEWPORT9 _trViewport;
 	D3DVIEWPORT9 _rtrsViewport;
 
+	bool flick;
+
 public:
 	CTransformApplication();
 	virtual ~CTransformApplication();
@@ -29,6 +31,7 @@ protected:
 	bool PreReset() override;
 	bool PostReset() override;
 	void Render() override;
+	bool HandleMessage(MSG *message) override;
 
 };
 
